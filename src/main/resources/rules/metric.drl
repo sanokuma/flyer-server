@@ -1,0 +1,14 @@
+import com.intuit.flyer.entity.Metric;
+import com.intuit.flyer.service.OverspeedService;
+
+global OverspeedService overspeedService;
+
+dialect "mvel"
+
+rule "Speed exceeding 80 kmph"
+    when
+        m: Metric(vehicleSpeed > 80)
+    then
+        System.out.println("==========Speed of vehicle exceeded 80 kmph=============");
+        overspeedService.insert(m.vehicleNo, m.vehicleSpeed);
+end
